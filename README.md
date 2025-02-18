@@ -18,4 +18,4 @@ Ensure environment setup: https://reactnative.dev/docs/set-up-your-environment
 
 In another terminal, run the frontend:
 
-`cd frontend` -> `npx run-ios` (or `npx run-android`)
+`cd frontend` -> `npx react-native run-android` (or `npx run-ios` if on mac)
