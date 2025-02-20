@@ -20,7 +20,7 @@ export default function MainNavigator() {
           tabBarIcon: ({ color, size }) => {
             let iconName = ''
             if (route.name === 'Home') iconName = 'home-outline'
-            else if (route.name === 'Classes') iconName = 'book-outline'
+            else if (route.name === 'Courses') iconName = 'search-outline'
             else if (route.name === 'Chats') iconName = 'chatbubbles-outline'
             else if (route.name === 'Profile') iconName = 'person-outline'
 
@@ -31,7 +31,7 @@ export default function MainNavigator() {
         })}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Classes" component={ClassesScreen} />
+        <Tab.Screen name="Courses" component={ClassesScreen} />
         <Tab.Screen name="Chats" component={ChatsScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>
