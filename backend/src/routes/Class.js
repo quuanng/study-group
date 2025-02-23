@@ -6,10 +6,15 @@ const router = Router()
 
 // Add a new class
 router.post("/add", async (req, res) => {
-  const { className, instructor} = req.body
-
+  const { subject, catalog_number, full_name, descr, saves } = req.body
   try {
-    const newClass = new ClassModel({ className, instructor })
+    // Check if the class already exists in the database
+    const existingClass = await ClassModel.findOne({ subject, catalog_number })
+    if (existingClass) {
+      return res.status(400).json({ error: "Class already exists in the database" })
+    }
+    // If it doesn't exist, add the new class
+    const newClass = new ClassModel({ subject, catalog_number, full_name, descr, saves })
     await newClass.save()
     res.status(201).json({ message: "Class added successfully", class: newClass })
   } catch (error) {
@@ -18,6 +23,8 @@ router.post("/add", async (req, res) => {
   }
 })
 
+
+/*
 // Search for a course with suggestions
 router.get("/search", async (req, res) => {
   const { query } = req.query
@@ -51,5 +58,6 @@ const calculateSimilarity = (query, target) => {
   const matchLength = target.startsWith(query) ? queryLength : 0
   return matchLength / target.length // Basic similarity score
 }
+*/
 
 export default router
