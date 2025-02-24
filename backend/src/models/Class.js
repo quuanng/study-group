@@ -5,6 +5,7 @@ const ClassSchema = new mongoose.Schema({
   catalog_number: { type: String, required: true},
   full_name: { type: String, required: true},
   descr: { type: String, required: true},
+  count: { type: Number, required: true},
   saves: { type: Number, required: true },
   studyGroups: [{ type: mongoose.Schema.Types.ObjectId, ref: "StudyGroup" }]
 })

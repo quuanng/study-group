@@ -1,11 +1,10 @@
 // Do not run - just kept here for the record - it adds all courses from a json file into the database
 
-/*
 import fs from "fs"
 import axios from "axios"
 
-const inputFile = ''
-const apiUrl = ''
+const inputFile = 'filtered_data.json'
+const apiUrl = 'http://localhost:8240/api/class/add'
 
 async function uploadToDatabase() {
   try {
@@ -18,6 +17,7 @@ async function uploadToDatabase() {
           catalog_number: course.CATALOG_NBR,
           full_name: course.FULL_NAME,
           descr: course.DESCR,
+          count: course.COUNT,
           saves: 0 // Default value
         })
         count++
@@ -33,4 +33,3 @@ async function uploadToDatabase() {
 }
 
 uploadToDatabase()
-*/
