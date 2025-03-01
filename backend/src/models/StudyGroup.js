@@ -13,13 +13,6 @@ const StudyGroupSchema = new mongoose.Schema({
       userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
       joinedAt: { type: Date, default: Date.now }
     }
-  ],
-  chat: [
-    {
-      senderId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-      message: { type: String, required: true },
-      timestamp: { type: Date, default: Date.now }
-    }
   ]
 })
 
