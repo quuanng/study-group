@@ -1,4 +1,5 @@
 import { Router } from "express"
+import { ChatModel } from "../models/Chat.js"
 import { StudyGroupModel } from "../models/StudyGroup.js"
 import { ClassModel } from "../models/Class.js"
 import authMiddleware from "../middleware/authMiddleware.js"

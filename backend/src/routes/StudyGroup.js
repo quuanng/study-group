@@ -7,7 +7,7 @@ const router = Router()
 
 // Add a new study group
 router.post("/add", authMiddleware, async (req, res) => {
-  const { classId, section, title, time, location, maxStudents, creatorId } = req.body
+  const { classId, title, time, location, maxStudents, priv, creatorId } = req.body
 
   try {
     // Ensure the class exists
@@ -19,11 +19,11 @@ router.post("/add", authMiddleware, async (req, res) => {
     // Create the study group
     const newStudyGroup = new StudyGroupModel({
       classId,
-      section,
       title,
       time,
       location,
       maxStudents,
+      priv,
       creatorId,
       members: [{ userId: creatorId }] // Add creator as the first member
     })
