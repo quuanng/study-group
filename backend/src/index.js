@@ -11,7 +11,7 @@ import { ChatModel } from "./models/Chat.js"
 dotenv.config()
 
 const app = express()
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 8240
 
 const server = http.createServer(app)
 
@@ -47,11 +47,14 @@ io.on("connection", (socket) => {
     console.log("User connected:", socket.id)
 
     socket.on("joinGroup", (groupId) => {
+        console.log("HUH ", groupId)
         socket.join(groupId)
     })
 
     socket.on("sendMessage", async (data) => {
+        console.log(data)
         const { groupId, senderId, senderName, message } = data
+        console.log(groupId)
 
         if (!message || message.trim() === "") {
             socket.emit("error", { message: "Message cannot be empty" })
@@ -60,8 +63,9 @@ io.on("connection", (socket) => {
 
         const newMessage = new ChatModel({ groupId, senderId, senderName, message })
         await newMessage.save()
-
-        io.to(groupId).emit("message", newMessage)
+        
+        // this duplicates the message because redis does the same thing
+        // io.to(groupId).emit("message", newMessage)
 
         redisPub.publish("chat", JSON.stringify(newMessage))
     })

@@ -5,6 +5,17 @@ import authMiddleware from "../middleware/authMiddleware.js"
 
 const router = Router()
 
+// Get study group info
+router.get("/:groupId", async (req, res) => {
+  try {
+    const group = await StudyGroupModel.findById(req.params.groupId)
+    res.json(group)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: "Error getting study group."})
+  }
+})
+
 // Add a new study group
 router.post("/add", authMiddleware, async (req, res) => {
   const { classId, title, time, location, maxStudents, priv, creatorId } = req.body
