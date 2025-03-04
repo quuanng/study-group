@@ -1,32 +1,42 @@
 import React from 'react'
 import { View, Text, StyleSheet, FlatList, Button, SafeAreaView} from 'react-native'
-import ChatMessage from '../components/ChatMessage';
+import ChatMessage, { ChatMessageData } from '../components/ChatMessage';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/MainNavigator';
+import ChatSendBox from '../components/ChatSendBox';
 
 export default function ChatsScreen() {
 
-  const DATA: {sender: string, is_self: boolean, timestamp: number, content: string}[] = [
-    {
-        sender: "Tony Rutherford",
-        timestamp: 5001,
-        is_self: true,
-        content: "Hey guys how we doin"
-    },
-    {
-        sender: "Quang Pham",
-        timestamp: 5002,
-        is_self: false,
-        content: "Doin good tony"
-    },
-    {
-        sender: "Adam Douiri",
-        timestamp: 5003,
-        is_self: false,
-        content: "Alriight"
-    },
-  ];
+    const dummyChatMessages: ChatMessageData[] = [
+      {
+        _id: "65df3bfa1c4a1a001c1d7e5a",
+        groupId: "65de2bfa2b4a2b002d2e8f5b",
+        senderId: "65de2cfa3b5b3c003e3f9g6c",
+        senderName: "Alice Johnson",
+        message: "Hey everyone! When is our next study session?",
+        timestamp: "2025-02-28T14:30:00.000Z",
+        readBy: ["0", "65de4efa5d7d5e005g5i1k8e"]
+      },
+      {
+        _id: "65df3bfb2d5c5b002e2f8g6d",
+        groupId: "65de2bfa2b4a2b002d2e8f5b",
+        senderId: "0",
+        senderName: "Bob Smith",
+        message: "I think we agreed on Sunday at 3 PM. Does that work for everyone?",
+        timestamp: "2025-02-28T14:35:00.000Z",
+        readBy: ["65de4efa5d7d5e005g5i1k8e"]
+      },
+      {
+        _id: "65df3bfc3e6d6c003f3h9j8e",
+        groupId: "65de2bfa2b4a2b002d2e8f5b",
+        senderId: "65de4efa5d7d5e005g5i1k8e",
+        senderName: "Charlie Brown",
+        message: "Yeah, Sunday at 3 PM works for me!",
+        timestamp: "2025-02-28T14:40:00.000Z",
+        readBy: []
+      }
+    ];
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
@@ -40,9 +50,10 @@ export default function ChatsScreen() {
                       <Text style={styles.chat_title}>Chat Title Here</Text>
                   </View>
               </View>
-          <FlatList contentContainerStyle={styles.list} data={DATA}
+          <FlatList contentContainerStyle={styles.list} data={dummyChatMessages}
               renderItem={({item}) => <ChatMessage Message={item} />}
               keyExtractor={(item, idx) => idx.toString()} />
+          <ChatSendBox></ChatSendBox>
           </View>
       </View>
     </SafeAreaView>
