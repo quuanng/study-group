@@ -33,11 +33,11 @@ const ChatSendBox: React.FC<ChatSendBoxProps> = ({ sendMessage }) => {
 const styles = StyleSheet.create({
     container: {
         position: "absolute",
-        bottom: 0,
+        bottom: 15,
         left: 25,
         right: 25,
-        height: 50,
-        backgroundColor: "#ffffff",
+        height: 40,
+        backgroundColor: "#f2f2f2",
         borderColor: '#D9D9D9',
         borderWidth: 1,
         flexDirection: 'row',
