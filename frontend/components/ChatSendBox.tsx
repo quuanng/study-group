@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, TextInput, Button, StyleSheet, Alert, Image, Pressable, TouchableOpacity } from 'react-native'
 
 interface ChatSendBoxProps {
+    sendMessage: (a: string) => void;
 }
 
 const charLimit = 255;
 
-const ChatSendBox: React.FC<ChatSendBoxProps> = ({ }) => {
+const ChatSendBox: React.FC<ChatSendBoxProps> = ({ sendMessage }) => {
 
     const [content, setContent] = useState('')
 
     const onPressSend = () => {
-        // TODO: Connect to backend
+        sendMessage(content)
         setContent("")
     }
 

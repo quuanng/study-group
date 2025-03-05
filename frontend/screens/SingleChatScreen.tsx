@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { View, Text, StyleSheet, FlatList, Button, SafeAreaView} from 'react-native'
 import ChatMessage, { ChatMessageData } from '../components/ChatMessage';
 import { useNavigation } from '@react-navigation/native';
@@ -8,7 +8,8 @@ import ChatSendBox from '../components/ChatSendBox';
 
 export default function ChatsScreen() {
 
-    const dummyChatMessages: ChatMessageData[] = [
+    {/* TODO: remove */}
+    const [dummyChatMessages, setDummyChatMessages] = useState([
       {
         _id: "65df3bfa1c4a1a001c1d7e5a",
         groupId: "65de2bfa2b4a2b002d2e8f5b",
@@ -36,7 +37,7 @@ export default function ChatsScreen() {
         timestamp: "2025-02-28T14:40:00.000Z",
         readBy: []
       }
-    ];
+    ]);
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
@@ -53,7 +54,17 @@ export default function ChatsScreen() {
           <FlatList contentContainerStyle={styles.list} data={dummyChatMessages}
               renderItem={({item}) => <ChatMessage Message={item} />}
               keyExtractor={(item, idx) => idx.toString()} />
-          <ChatSendBox></ChatSendBox>
+          <ChatSendBox sendMessage={(content) => { {/* TODO: replace test sendMessage call with real one */}
+            setDummyChatMessages(dummyChatMessages.concat({
+              _id: "testid",
+              groupId: "65de2bfa2b4a2b002d2e8f5b",
+              senderId: "0",
+              senderName: "Bob Smith",
+              message: content,
+              timestamp: new Date().toISOString(),
+              readBy: []
+            }))
+          }}></ChatSendBox>
           </View>
       </View>
     </SafeAreaView>
