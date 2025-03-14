@@ -3,6 +3,7 @@ import { View, Text, Alert, Button, StyleSheet } from 'react-native'
 import axios, { AxiosError } from 'axios' // Import AxiosError for error typing
 import LoginForm from '../components/LoginForm'
 import { storeToken, getToken, deleteToken, validateToken } from '../utils/auth'
+import RegisterForm from '../components/RegisterForm'
 
 const BACKEND_URL = 'http://localhost:8240/api' // Replace with your backend URL
 
@@ -14,6 +15,7 @@ interface ErrorResponse {
 const ProfileScreen: React.FC = () => {
   const [user, setUser] = useState<null | { name: string; email: string }>(null) // User state
   const [loading, setLoading] = useState(false)
+  const [activeForm, setActiveForm] = useState<"login" | "register">("login")
 
   // Check if a user is already logged in on screen load
   useEffect(() => {
@@ -80,10 +82,17 @@ const ProfileScreen: React.FC = () => {
         </View>
       ) : (
         // Display login form if not logged in
-        <View>
-          <Text style={styles.text}>Login to Your Profile</Text>
-          <LoginForm onSubmit={handleLogin} loading={loading} />
-        </View>
+        activeForm == "login" ? (
+          <View>
+            <Text style={styles.text}>Login to Your Profile</Text>
+            <LoginForm onSubmit={handleLogin} loading={loading} swapForm={() => setActiveForm("register")} />
+          </View>
+        ) : (
+          <View>
+            <Text style={styles.text}>Create an Account</Text>
+            <RegisterForm onSubmit={handleLogin} loading={loading} swapForm={() => setActiveForm("login")} />
+          </View>
+        )
       )}
     </View>
   )
