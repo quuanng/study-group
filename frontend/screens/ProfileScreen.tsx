@@ -60,6 +60,26 @@ const ProfileScreen: React.FC = () => {
     }
   }
 
+  // Handle register form submission
+  const handleRegister = async (name: string, email: string, password: string) => {
+    setLoading(true)
+    try {
+      const response = await axios.post(`${BACKEND_URL}/user/add`, { name, email, password })
+      const { user } = response.data
+
+      Alert.alert('Account created successfully', `You may now log in as ${user.name}!`)
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError<ErrorResponse> // Type the Axios error
+      console.error('Registration error:', axiosError)
+
+      const errorMessage =
+        axiosError.response?.data?.error || 'An error occurred' // Access the error safely
+      Alert.alert('Registration Failed', errorMessage)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   // Handle logout
   const handleLogout = async () => {
     try {
@@ -90,7 +110,7 @@ const ProfileScreen: React.FC = () => {
         ) : (
           <View>
             <Text style={styles.text}>Create an Account</Text>
-            <RegisterForm onSubmit={handleLogin} loading={loading} swapForm={() => setActiveForm("login")} />
+            <RegisterForm onSubmit={handleRegister} loading={loading} swapForm={() => setActiveForm("login")} />
           </View>
         )
       )}
